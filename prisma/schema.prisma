@@ -50,10 +50,10 @@ model Comment {
   content   String
   createdAt DateTime @default(now())
 
-  author   User   @relation(fields: [authorId], references: [id])
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId String
 
-  post   CarPost @relation(fields: [postId], references: [id])
+  post   CarPost @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId Int
 }
 
