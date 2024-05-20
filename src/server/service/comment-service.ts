@@ -56,7 +56,7 @@ export async function deleteComment(id: number) {
   const { session } = await validateRequest();
   if (!session) throw new Error("Unauthorized");
 
-  return db.comment.delete({ where: { id, authorId: session.userId } });
+  return db.comment.delete({ where: { id } });
 }
 
 export async function fetchComments({

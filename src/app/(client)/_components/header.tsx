@@ -39,7 +39,7 @@ export function Header() {
   }
 
   return (
-    <Navbar isBordered>
+    <Navbar isBordered className={"z-50"}>
       <NavbarContent className={"flex items-center gap-8"}>
         <NavbarBrand>
           <Link href={"/"} className={"flex items-center gap-4"}>

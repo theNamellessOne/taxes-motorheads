@@ -14,6 +14,7 @@ import { Avatar } from "@nextui-org/avatar";
 import { Send } from "lucide-react";
 import { createComment } from "~/server/service/comment-service";
 import { toast } from "react-toastify";
+import Link from "next/link";
 
 export function CarPostCommentForm(carPost: CarPost) {
   const auth = useAuth();
@@ -26,9 +27,11 @@ export function CarPostCommentForm(carPost: CarPost) {
         }
       >
         <p>You must be signed in to comment here</p>
-        <Button variant={"solid"} color={"secondary"}>
-          Sign In
-        </Button>
+        <Link href={"/auth"}>
+          <Button variant={"solid"} color={"secondary"}>
+            Sign In
+          </Button>
+        </Link>
       </div>
     );
 

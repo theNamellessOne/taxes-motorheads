@@ -50,7 +50,7 @@ export function CommentForm(props: { defaultValues: Comment }) {
             <ArrowLeft className={"h-5 w-5"} />
           </Button>
 
-          <h4 className={"text-lg font-semibold"}>New Post</h4>
+          <h4 className={"text-lg font-semibold"}>Comment</h4>
         </div>
 
         <Button

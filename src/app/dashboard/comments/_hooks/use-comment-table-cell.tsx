@@ -5,6 +5,7 @@ import { Pencil, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { deletePost } from "~/server/service/car-post-service";
 import { toast } from "react-toastify";
+import { deleteComment } from "~/server/service/comment-service";
 
 export type CommentTableCellKey = keyof Comment | "actions";
 
@@ -18,7 +19,7 @@ export function useCommentTableCell(reload: () => void) {
             size={"sm"}
             variant={"light"}
             isIconOnly
-            onPress={() => router.push(`car-posts/edit/${comment.id}`)}
+            onPress={() => router.push(`comments/edit/${comment.id}`)}
           >
             <Pencil className={"h-4 w-4"} />
           </Button>
@@ -29,9 +30,9 @@ export function useCommentTableCell(reload: () => void) {
             color={"danger"}
             isIconOnly
             onPress={() => {
-              deletePost(comment.id)
+              deleteComment(comment.id)
                 .then(() => {
-                  toast.success("Post deleted", { autoClose: 1000 });
+                  toast.success("Comment deleted", { autoClose: 1000 });
                   reload();
                 })
                 .catch((e) => toast.error(String(e)));

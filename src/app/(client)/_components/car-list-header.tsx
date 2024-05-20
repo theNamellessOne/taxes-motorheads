@@ -25,8 +25,8 @@ export function CarListHeader() {
 
   const sortOptions: (SortDescriptor<CarPost> & { name: string })[] = [
     { column: "id", direction: "desc", name: "Default" },
-    { column: "createdAt", direction: "asc", name: "Newer first" },
-    { column: "createdAt", direction: "desc", name: "Older first" },
+    { column: "createdAt", direction: "desc", name: "Newer first" },
+    { column: "createdAt", direction: "asc", name: "Older first" },
   ];
 
   return (
