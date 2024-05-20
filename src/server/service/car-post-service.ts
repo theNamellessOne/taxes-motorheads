@@ -1,21 +1,21 @@
 "use server";
 
 import { CarPost } from "@prisma/client";
+import { FetchFunctionProps } from "~/app/hooks/use-list";
 import {
-  CarPostCreate,
-  CarPostUpdate,
+  CarPostCreateInput,
+  CarPostUpdateInput,
   carPostCreateSchema,
   carPostUpdateSchema,
-} from "~/schema/car-post";
+} from "~/schema/car-post-schema";
 import { db } from "~/server/db";
-import { SortDescriptor } from "~/util/sort-descriptor";
 
-export async function createPost(input: CarPostCreate) {
+export async function createPost(input: CarPostCreateInput) {
   const data = carPostCreateSchema.parse(input);
   return db.carPost.create({ data });
 }
 
-export async function updatePost(id: number, input: CarPostUpdate) {
+export async function updatePost(id: number, input: CarPostUpdateInput) {
   const data = carPostUpdateSchema.parse(input);
   return db.carPost.update({
     where: { id },
@@ -27,12 +27,12 @@ export async function fetchPostById(id: number) {
   return db.carPost.findUnique({ where: { id } });
 }
 
-export async function fetchPosts(
-  page: number = 1,
-  pageSize: number = 10,
-  query: string = "",
-  sortDescriptor: SortDescriptor<CarPost> = { column: "id", direction: "desc" },
-) {
+export async function fetchPosts({
+  page = 1,
+  pageSize = 10,
+  query = "",
+  sortDescriptor = { column: "id", direction: "desc" },
+}: FetchFunctionProps<CarPost>) {
   let where: {} = {};
   if (query) {
     where = {
@@ -40,8 +40,8 @@ export async function fetchPosts(
     };
   }
 
-  const totalPages = await db.carPost.count({ where });
-  const data = db.carPost.findMany({
+  const totalPages = Math.ceil((await db.carPost.count({ where })) / pageSize);
+  const data = await db.carPost.findMany({
     skip: (page - 1) * pageSize,
     take: pageSize,
     where,

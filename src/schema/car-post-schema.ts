@@ -4,14 +4,16 @@ export const carPostCreateSchema = z.object({
   title: z.string(),
   content: z.string(),
   imgUrl: z.string().url(),
+  preview: z.string(),
 });
-export type CarPostCreate = z.infer<typeof carPostCreateSchema>;
+export type CarPostCreateInput = z.infer<typeof carPostCreateSchema>;
 
 export const carPostUpdateSchema = carPostCreateSchema
   .pick({
     title: true,
     content: true,
     imgUrl: true,
+    preview: true,
   })
   .partial();
-export type CarPostUpdate = z.infer<typeof carPostUpdateSchema>;
+export type CarPostUpdateInput = z.infer<typeof carPostUpdateSchema>;
